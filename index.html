@@ -30,6 +30,8 @@
         }
         main {
             flex: 1;
+            position: relative;
+            z-index: 1;
         }
         footer {
             background-color: rgb(29, 29, 29);
@@ -37,6 +39,8 @@
             padding: 20px 0;
             margin-top: 80px;
             border-top: 3px solid #333;
+            position: relative;
+            z-index: 1;
         }
         footer p {
             margin: 0;
@@ -208,9 +212,118 @@
                 height: 180px;
             }
         }
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .bubbles span {
+            position: absolute;
+            bottom: -180px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: animate-bubbles 25s linear infinite;
+            backdrop-filter: blur(5px);
+        }
+        .bubbles span:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            left: 10%;
+            animation-duration: 22s;
+            animation-delay: -5s;
+        }
+        .bubbles span:nth-child(2) {
+            width: 20px;
+            height: 20px;
+            left: 20%;
+            animation-duration: 18s;
+            animation-delay: -10s;
+        }
+        .bubbles span:nth-child(3) {
+            width: 50px;
+            height: 50px;
+            left: 35%;
+            animation-duration: 28s;
+            animation-delay: -2s;
+        }
+        .bubbles span:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            left: 50%;
+            animation-duration: 15s;
+            animation-delay: -7s;
+        }
+        .bubbles span:nth-child(5) {
+            width: 35px;
+            height: 35px;
+            left: 55%;
+            animation-duration: 25s;
+            animation-delay: -12s;
+        }
+        .bubbles span:nth-child(6) {
+            width: 45px;
+            height: 45px;
+            left: 65%;
+            animation-duration: 19s;
+            animation-delay: -4s;
+        }
+        .bubbles span:nth-child(7) {
+            width: 150px;
+            height: 150px;
+            left: 70%;
+            animation-duration: 35s;
+            animation-delay: -15s;
+        }
+        .bubbles span:nth-child(8) {
+            width: 25px;
+            height: 25px;
+            left: 80%;
+            animation-duration: 16s;
+            animation-delay: -8s;
+        }
+        .bubbles span:nth-child(9) {
+            width: 15px;
+            height: 15px;
+            left: 90%;
+            animation-duration: 26s;
+            animation-delay: -20s;
+        }
+        .bubbles span:nth-child(10) {
+            width: 60px;
+            height: 60px;
+            left: 95%;
+            animation-duration: 20s;
+            animation-delay: -1s;
+        }
+        @keyframes animate-bubbles {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-120vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
+<div class="bubbles">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
 <main>
     <div class="obrazek">
         <img src="luky_cz.png" alt="Luky_Cz">
