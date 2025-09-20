@@ -190,9 +190,59 @@
             margin-right: auto;
             display: block;
         }
+        .zkusenosti {
+            border: 3px solid #333;
+            border-radius: 15px;
+            margin: 10% 15px 0 15px;
+            background-color: #2a2a2a;
+            text-align: center;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .zkusenosti p {
+            margin-top: -35px;
+            margin-bottom: 30px;
+        }
+        .zkusenosti h2 {
+            margin-top: 0;
+            margin-bottom: 40px;
+            font-size: 2em;
+        }
+        .zkusenosti h3 {
+            font-size: 1.1em;
+        }
+        .zkusenosti img {
+            border: 3px solid #666;
+            width: 60%;
+            border-radius: 15px;
+            height: 60%;
+            object-fit: cover;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
         @media (min-width: 768px) {
             .popis {
                 margin-top: 50px;
+            }
+            .skill {
+                max-width: 100%;
+                font-size: 14px;
+            }
+            .skill .icon {
+                margin-top: 2px;
+                width: 16px;
+                height: 16px;
+                margin-top: 3px;
+            }
+            .zkusenosti {
+                margin: 50px auto 0 auto;
+                max-width: 1200px;
+                padding: 40px;
             }
             .ikonky {
                 margin-top: 40px;
@@ -314,6 +364,23 @@
                 opacity: 0;
             }
         }
+        .skill {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            text-align: left;
+            margin-bottom: 12px;
+            max-width: 90%;
+        }
+ 
+        .skill .icon {
+            border: 0px;
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        } 
     </style>
 </head>
 <body>
@@ -377,6 +444,38 @@
 Budu se těšit na spolupráci s vámi!</p>
         <img src="nabizim.webp" alt="Nabízím">
     </div>
+<div class="zkusenosti">
+    <h2>Moje zkušenosti</h2>
+    <div class="skill">
+        <img src="checked.webp" alt="✔" class="icon">
+        <span>Umím pracovat s <strong>HTML</strong> a <strong>CSS</strong> – tvorba moderních a responzivních webů.</span>
+    </div>
+    <div class="skill">
+        <img src="checked.webp" alt="✔" class="icon">
+        <span>Základy <strong>PHP</strong> – tvorba jednoduchých backendových funkcí.</span>
+    </div>
+    <div class="skill">
+        <img src="checked.webp" alt="✔" class="icon">
+        <span>Znalost <strong>databází</strong> (MySQL) – práce s tabulkami, dotazy a propojení s webovými aplikacemi.</span>
+    </div>
+    <div class="skill">
+        <img src="checked.webp" alt="✔" class="icon">
+        <span>Neustále se učím nové technologie a zlepšuji své dovednosti.</span>
+    </div>
+    <div class="skill">
+        <img src="delete.webp" alt="✘" class="icon">
+        <span><strong>JavaScript</strong> – zatím mám jen menší základy, plánuju se doučit.</span>
+    </div>
+    <div class="skill">
+        <img src="delete.webp" alt="✘" class="icon">
+        <span><strong>React / moderní frameworky</strong> – nemám zkušenosti, ale chci se je naučit.</span>
+    </div>
+    <div class="skill">
+        <img src="delete.webp" alt="✘" class="icon">
+        <span><strong>Pokročilejší backend</strong> (např. Node.js) – zatím neumím, ale rád bych získal praxi.</span>
+    </div>
+</div>
+
 </main>
 <footer>
     <p>ㅤ&copy; 2025 <a href="https://lukycz.is-a.dev" style="color: rgb(184, 184, 184); text-decoration: none;" class="link">_Luky_Cz_</a>. / Všechna práva vyhrazena. / Vytvořil Lukáš Hanuš.ㅤ</p>
