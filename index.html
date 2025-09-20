@@ -7,6 +7,12 @@
   gtag('js', new Date());
 
   gtag('config', 'G-09PLLPBSQ6');
+  gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+});
 </script>
 <head>
     <link rel="website icon" href="https://lukycz.is-a.dev/luky_cze.webp">
@@ -20,6 +26,7 @@
     <meta property="og:type" content="website">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com/" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,700;1,400&display=swap" as="style" onload="this.rel='stylesheet'">
     <noscript>
@@ -57,7 +64,7 @@
             margin-top: 80px;
             border-top: 3px solid #333;
             position: relative;
-            z-index: 1;
+            z-index: 0;
         }
         footer p {
             margin: 0;
@@ -395,7 +402,44 @@
             margin-right: 8px;
             flex-shrink: 0;
             margin-top: 2px;
-        } 
+        }
+        #cookie-alert {
+            position: fixed;
+            z-index: -1;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgb(7, 7, 7);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            max-width: 90%;
+            font-size: 14px;
+            border: #000000 3px solid;
+        }
+        #cookie-alert p {
+            margin: 0;
+            flex: 1;
+        }
+        #cookie-accept-btn {
+            margin: 0;
+            flex: 1;
+            font-size: 14px;
+            background-color: #525252;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #cookie-accept-btn:hover {
+            background-color: #585858;
+        }
     </style>
 </head>
 <body>
@@ -412,6 +456,12 @@
     <span></span>
 </div>
 <main>
+    <div id="cookie-alert">
+    <p>Tento web používá cookies ke zlepšení zážitku a analytice. Pokračováním souhlasíte s používáním cookies.</p>
+    <div>
+      <button style="border: #7e7e7e 3px solid; font-family: 'Poppins', sans-serif;" id="cookie-accept-btn">Přijmout</button>
+    </div>
+    </div>
     <div class="obrazek">
         <img fetchpriority=high src="luky_cze.webp" alt="Luky_Cz">
     </div>
@@ -463,7 +513,7 @@ Budu se těšit na spolupráci s vámi!</p>
     <h2>Moje zkušenosti</h2>
     <div class="skill">
         <img fetchpriority=high src="checked.webp" alt="✔" class="icon">
-        <span>Umím pracovat s <strong>HTML</strong> a <strong>CSS</strong> – tvorba moderních a responzivních webů.</span>
+        <span>Umím pracovat s <strong>HTML</strong>; a <strong>CSS</strong> – tvorba moderních a responzivních webů.</span>
     </div>
     <div class="skill">
         <img fetchpriority=high src="checked.webp" alt="✔" class="icon">
@@ -496,5 +546,41 @@ Budu se těšit na spolupráci s vámi!</p>
     <p>ㅤ&copy; 2025 <a href="https://lukycz.is-a.dev" style="color: rgb(184, 184, 184); text-decoration: none;" class="link">_Luky_Cz_</a>. / Všechna práva vyhrazena. / Vytvořil Lukáš Hanuš.ㅤ</p>
 </footer>
 </body>
+<script>
+(function() {
+  const banner = document.getElementById('cookie-alert');
+  const btn = banner ? banner.querySelector('button') : null;
+
+  function hideBanner() {
+    if (banner) banner.style.display = 'none';
+  }
+
+  try {
+    if (localStorage.getItem('cookiesAccepted') === 'true') {
+      hideBanner();
+      return;
+    }
+  } catch(e) {
+    console.error(e);
+  }
+
+  if (btn) {
+    btn.addEventListener('click', function() {
+      try {
+        localStorage.setItem('cookiesAccepted', 'true');
+      } catch(e) {
+        console.error(e);
+      }
+      hideBanner();
+      if (typeof gtag === 'function') {
+        gtag('consent', 'update', {
+          'ad_storage':'granted',
+          'analytics_storage':'granted'
+        });
+      }
+    });
+  }
+})();
+</script>
 
 </html>
