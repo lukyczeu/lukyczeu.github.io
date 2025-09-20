@@ -405,7 +405,6 @@
         }
         #cookie-alert {
             position: fixed;
-            z-index: -1;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
@@ -414,28 +413,30 @@
             padding: 15px 20px;
             border-radius: 10px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 10px;
-            z-index: 1000;
-            max-width: 90%;
-            font-size: 14px;
             border: #000000 3px solid;
+            z-index: 1000;
+            max-width: 600px;
+            width: 90%;
         }
         #cookie-alert p {
             margin: 0;
-            flex: 1;
+            font-size: 14px;
+            text-align: center;
         }
         #cookie-accept-btn {
-            margin: 0;
-            flex: 1;
             font-size: 14px;
             background-color: #525252;
             color: white;
             border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 8px 20px;
+            border-radius: 10px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            display: block;
+            margin: 0 auto;
         }
         #cookie-accept-btn:hover {
             background-color: #585858;
@@ -459,7 +460,7 @@
     <div id="cookie-alert">
     <p>Tento web používá cookies ke zlepšení zážitku a analytice. Pokračováním souhlasíte s používáním cookies.</p>
     <div>
-      <button style="border: #7e7e7e 3px solid; font-family: 'Poppins', sans-serif;" id="cookie-accept-btn">Přijmout</button>
+      <button style="border: #333333 3px solid; font-family: 'Poppins', sans-serif;" id="cookie-accept-btn">Přijmout</button>
     </div>
     </div>
     <div class="obrazek">
