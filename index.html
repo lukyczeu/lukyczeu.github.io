@@ -14,6 +14,11 @@
       'ad_personalization': 'denied',
 });
 </script>
+<script
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  async
+  defer
+></script>
 <head>
     <link rel="website icon" href="https://lukycz.is-a.dev/luky_cze.webp">
     <link rel="icon" href="https://lukycz.is-a.dev/luky_cze.webp" type="image/png">
@@ -244,6 +249,74 @@
             margin-right: auto;
             display: block;
         }
+        .formular {
+            border: 3px solid #333;
+            border-radius: 15px;
+            margin: 10% 15px 0 15px;
+            background-color: #2a2a2a;
+            text-align: center;
+            padding: 15px;
+        }
+        .formular h2 {
+            margin-top: 0;
+            margin-bottom: 40px;
+            font-size: 2em;
+        }
+        .formular p {
+            margin-top: -35px;
+            margin-bottom: 30px;
+        }
+        .formular form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .formular label {
+            text-align: left;
+            font-weight: 500;
+            margin-bottom: -10px;
+        }
+        .formular input,
+        .formular textarea {
+            padding: 12px;
+            border-radius: 10px;
+            border: 2px solid #444;
+            background-color: #1d1d1d;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            resize: vertical;
+        }
+        .formular input:focus,
+        .formular textarea:focus {
+            outline: none;
+            border-color: #666;
+        }
+        .formular button {
+            padding: 12px 20px;
+            background-color: #525252;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .formular button:hover {
+            background-color: #585858;
+        }
+        .cf-turnstile {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        
         @media (min-width: 768px) {
             .popis {
                 margin-top: 50px;
@@ -272,6 +345,11 @@
                 padding: 40px;
             }
             .nabizim {
+                margin: 50px auto 0 auto;
+                max-width: 1200px;
+                padding: 40px;
+            }
+            .formular {
                 margin: 50px auto 0 auto;
                 max-width: 1200px;
                 padding: 40px;
@@ -541,7 +619,22 @@ Budu se těšit na spolupráci s vámi!</p>
         <span><strong>Pokročilejší backend</strong> (např. Node.js) – zatím neumím, ale rád bych získal praxi.</span>
     </div>
 </div>
-</main>
+<div class="formular">
+    <h2>Kontaktujte mě</h2>
+    <p>Máte zájem o spolupráci nebo chcete vědět více?</p>
+    <form id="contact" action="formular.php" method="post">
+        <label for="email">Váš email</label>
+        <input minlength="10" maxlength="50" type="email" id="email" name="email" required>
+        <label for="title">Jméno</label>
+        <input minlength="5" maxlength="30" type="text" id="title" name="title" required>
+        <label for="subject">Předmět</label>
+        <input minlength="5" maxlength="30" type="text" id="subject" name="subject" required>
+        <label for="message">Zpráva</label>
+        <textarea minlength="10" maxlength="500" id="message" name="message" required></textarea>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAB2dVGT0M-y7GFRf"></div>
+        <button style="border: #333333 3px solid;" type="submit">Odeslat zprávu</button>
+    </form>
+</div>
 <footer>
     <p>ㅤ&copy; 2025 <a href="https://lukycz.is-a.dev" style="color: rgb(184, 184, 184); text-decoration: none;" class="link">_Luky_Cz_</a>. / Všechna práva vyhrazena. / Vytvořil Lukáš Hanuš.ㅤ</p>
 </footer>
