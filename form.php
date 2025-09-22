@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ob_start();
 $admin_email = "lukas.hanus.cz@icloud.com"; 
 $smtp_host = "smtp.mail.me.com";
 $smtp_port = 587;
