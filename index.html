@@ -642,7 +642,7 @@ Budu se těšit na spolupráci s vámi!</p>
 <div class="formular">
     <h2>Kontaktujte mě</h2>
     <p>Máte zájem o spolupráci nebo chcete vědět více?</p>
-    <form id="contact-form" action="form.php" method="link">
+    <form id="contact-form" action="form.php" method="POST">
         <label for="email">Váš email</label>
         <input minlength="10" maxlength="50" type="email" id="email" name="email" required>
         <label for="title">Jméno</label>
@@ -655,6 +655,19 @@ Budu se těšit na spolupráci s vámi!</p>
         <button style="border: #333333 3px solid;" type="submit">Odeslat zprávu</button>
     </form>
 </div>
+
+<script>
+document.getElementById('contact-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+  const response = await fetch('form.php', {
+    method: 'POST',
+    body: formData
+  });
+  const text = await response.text();
+  document.getElementById('form-response').innerHTML = text;
+});
+</script>
 <footer>
     <p>ㅤ&copy; 2025 <a href="https://lukycz.is-a.dev" style="color: rgb(184, 184, 184); text-decoration: none;" class="link">_Luky_Cz_</a>. / Všechna práva vyhrazena. / Vytvořil Lukáš Hanuš.ㅤ</p>
 </footer>
