@@ -4,8 +4,7 @@ $smtp_host = "smtp.mail.me.com";
 $smtp_port = 587;
 $smtp_username = "lukas.hanus.cz@icloud.com";
 $smtp_password = "dstq-mzxt-jhqa-ycse";
-$smtp_secure = "SSL";
-
+$smtp_secure = "TLS";
 $turnstile_secret = "0x4AAAAAAB2dVCikodlchzylZ9ywcQwCBQw";
 $response = array();
 $response['success'] = false;
