@@ -703,16 +703,19 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     const formData = new FormData(form);
     const formMessages = document.getElementById('form-messages');
 
-    formMessages.innerHTML = ''; 
-
-    fetch('form.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        formMessages.innerHTML = `<div class="form-message ${data.success ? 'success' : 'error'}">${data.message}</div>`;
-        if (data.success) {
+        // Přidej ajax=1 pro správnou odpověď PHP
+        formData.append('ajax', '1');
+    
+        formMessages.innerHTML = '';
+    
+        fetch('form.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            formMessages.innerHTML = `<div class="form-message ${data.success ? 'success' : 'error'}">${data.message}</div>`;
+            if (data.success) {
             form.reset();
         }
     })
