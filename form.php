@@ -115,8 +115,10 @@ $admin_sent = send_email($admin_email, $admin_subject, $admin_body, $smtp_userna
             $response['success'] = true;
             $response['message'] = "Zpráva byla úspěšně odeslána! Děkuji za kontakt.";
         } else {
+            global $last_smtp_error;
+            $errMsg = isset($last_smtp_error) ? ("<br><small>Detail: ".$last_smtp_error."</small>") : "";
             $response['success'] = false;
-            $response['message'] = "Chyba při odesílání emailu. Prosím zkuste znovu nebo mě kontaktujte přímo.";
+            $response['message'] = "Chyba při odesílání emailu. Prosím zkuste znovu nebo mě kontaktujte přímo.".$errMsg;
         }
     } else {
         $response['success'] = false;
