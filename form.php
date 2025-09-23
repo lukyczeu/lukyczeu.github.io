@@ -70,32 +70,43 @@ if (empty($errors)) {
 
 
 
-        $admin_subject = "Kontakt z webu: $subject";
-        $admin_body = "Nový kontakt z vašeho webu:\n\nEmail: $email\nJméno: $title\nPředmět: $subject\nZpráva:\n$message\n\n---\nOdesláno z: {$_SERVER['HTTP_HOST']}\nIP adresa: {$_SERVER['REMOTE_ADDR']}\nDatum: " . date('d.m.Y H:i:s');
+        $admin_subject = "Webový kontakt: $subject";
+        $admin_body = '<!DOCTYPE html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Webový kontakt</title></head><body style="background:#f7f7f7;margin:0;padding:30px;font-family:Poppins,Arial,sans-serif;">
+        <div style="max-width:600px;margin:0 auto;background:#fff;padding:32px 24px 24px 24px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);">
+        <h2 style="color:#FFD154;margin-top:0;margin-bottom:24px;">Webový kontakt</h2>
+        <p style="margin-bottom:18px;">Z webového formuláře přišla nová zpráva:</p>
+        <div style="margin-bottom:18px;">
+            <div style="margin-bottom:14px;"><span style="font-weight:600;display:block;margin-bottom:2px;">Jméno</span><span style="display:block;padding:10px 8px;background:#f9f9f9;border-radius:6px;border:1px solid #eaeaea;">'.htmlspecialchars($title).'</span></div>
+            <div style="margin-bottom:14px;"><span style="font-weight:600;display:block;margin-bottom:2px;">Email</span><span style="display:block;padding:10px 8px;background:#f9f9f9;border-radius:6px;border:1px solid #eaeaea;">'.htmlspecialchars($email).'</span></div>
+            <div style="margin-bottom:14px;"><span style="font-weight:600;display:block;margin-bottom:2px;">Předmět</span><span style="display:block;padding:10px 8px;background:#f9f9f9;border-radius:6px;border:1px solid #eaeaea;">'.htmlspecialchars($subject).'</span></div>
+            <div style="margin-bottom:14px;"><span style="font-weight:600;display:block;margin-bottom:2px;">Zpráva</span><span style="display:block;padding:10px 8px;background:#f9f9f9;border-radius:6px;border:1px solid #eaeaea;white-space:pre-wrap;">'.nl2br(htmlspecialchars($message)).'</span></div>
+        </div>
+        <hr style="border:none;border-top:1px solid #eee;margin:18px 0;">
+        <p style="font-size:13px;color:#666;margin:0;">Odesláno z: '.htmlspecialchars($_SERVER['HTTP_HOST']).'<br>IP adresa: '.htmlspecialchars($_SERVER['REMOTE_ADDR']).'<br>Datum: '.date('d.m.Y H:i:s').'</p>
+        </div></body></html>';
 
         $user_subject = "Děkujeme za zprávu - _Luky_Cz_";
         $user_body = '<!DOCTYPE html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Děkujeme za zprávu</title></head><body style="background:#f7f7f7;margin:0;padding:30px;font-family:Poppins,Arial,sans-serif;">
         <div style="max-width:600px;margin:0 auto;background:#fff;padding:32px 24px 24px 24px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);">
-        <h2 style="color:#1abc9c;margin-top:0;margin-bottom:24px;">Děkujeme za zprávu, '.htmlspecialchars($title).'</h2>
+        <h2 style="color:#FFD154;margin-top:0;margin-bottom:24px;">Děkujeme za zprávu, '.htmlspecialchars($title).'</h2>
         <p style="margin-bottom:18px;">Vaše zpráva byla úspěšně přijata. Níže najdete shrnutí vašeho požadavku:</p>
         <table style="width:100%;border-collapse:collapse;margin-bottom:18px;">
             <tr><td style="padding:10px 8px;border:1px solid #eaeaea;font-weight:600;width:30%;background:#f9f9f9;">Předmět</td><td style="padding:10px 8px;border:1px solid #eaeaea;">'.htmlspecialchars($subject).'</td></tr>
-            <tr><td style="padding:10px 8px;border:1px solid #eaeaea;font-weight:600;background:#f9f9f9;">Email</td><td style="padding:10px 8px;border:1px solid #eaeaea;">'.htmlspecialchars($email).'</td></tr>
+            <tr><td style="padding:10px 8px;border:1px solid #eaeaea;font-weight:600;background:#f9f9f9;">Email</td><td style="padding:10px 8px;border:1px solid #eaeaea;"><a href="mailto:'.htmlspecialchars($email).'" style="color:#FFD154;text-decoration:none;">'.htmlspecialchars($email).'</a></td></tr>
             <tr><td style="padding:10px 8px;border:1px solid #eaeaea;font-weight:600;background:#f9f9f9;vertical-align:top;">Zpráva</td><td style="padding:10px 8px;border:1px solid #eaeaea;white-space:pre-wrap;">'.nl2br(htmlspecialchars($message)).'</td></tr>
         </table>
         <p style="margin-bottom:24px;">Odpovím vám co nejdříve na výše uvedený email.</p>
         <hr style="border:none;border-top:1px solid #eee;margin:18px 0;">
-        <p style="font-size:13px;color:#666;margin:0;">S pozdravem,<br>_Luky_Cz_<br><a href="https://lukycz.is-a.dev" style="color:#1abc9c;text-decoration:none;">lukycz.is-a.dev</a></p>
+        <p style="font-size:13px;color:#666;margin:0;">S pozdravem,<br>_Luky_Cz_<br><a href="https://lukycz.is-a.dev" style="color:#FFD154;text-decoration:none;">lukycz.is-a.dev</a></p>
         </div></body></html>';
 
-        // Odeslat adminovi jako text, uživateli jako HTML
-        $admin_sent = send_email($admin_email, $admin_subject, $admin_body, $smtp_username, "Website Contact", false, $email);
+        $admin_sent = send_email($admin_email, $admin_subject, $admin_body, $smtp_username, "Webový kontakt", true, $email);
         if (!$admin_sent) {
             error_log("SMTP admin send failed: " . ($last_smtp_error ?? 'unknown'));
             $headers = [];
-            $headers[] = 'From: Website Contact <' . $smtp_username . '>';
+            $headers[] = 'From: Webový kontakt <' . $smtp_username . '>';
             $headers[] = 'Reply-To: ' . ($email ?: $smtp_username);
-            $headers[] = 'Content-Type: text/plain; charset=UTF-8';
+            $headers[] = 'Content-Type: text/html; charset=UTF-8';
             $admin_sent = mail($admin_email, $admin_subject, $admin_body, implode("\r\n", $headers));
             if ($admin_sent) {
                 error_log("Fallback mail() to admin succeeded.");
@@ -195,7 +206,6 @@ function send_email($to, $subject, $body, $from_email = null, $from_name = null,
         }
     }
 
-    // STARTTLS podpora
     if ($use_tls) {
         $resp = $send('STARTTLS');
         if (substr($resp,0,3) !== '220') {
@@ -212,7 +222,7 @@ function send_email($to, $subject, $body, $from_email = null, $from_name = null,
             fclose($fp);
             return false;
         }
-        // Po STARTTLS je potřeba znovu EHLO
+
         $resp = $send("EHLO {$hostname}");
         if (substr($resp,0,3) !== '250') {
             $msg = "EHLO after STARTTLS failed: " . trim($resp);
