@@ -67,25 +67,30 @@ if (empty($turnstile_response)) {
         }
     }
 if (empty($errors)) {
+
+
+
         $admin_subject = "Kontakt z webu: $subject";
-$admin_body = "
-Nový kontakt z vašeho webu:
+        $admin_body = "Nový kontakt z vašeho webu:\n\nEmail: $email\nJméno: $title\nPředmět: $subject\nZpráva:\n$message\n\n---\nOdesláno z: {$_SERVER['HTTP_HOST']}\nIP adresa: {$_SERVER['REMOTE_ADDR']}\nDatum: " . date('d.m.Y H:i:s');
 
-Email: $email
-Jméno: $title
-Předmět: $subject
-Zpráva:
-$message
+        $user_subject = "Děkujeme za zprávu - _Luky_Cz_";
+        $user_body = '<!DOCTYPE html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Děkujeme za zprávu</title></head><body style="background:#f7f7f7;margin:0;padding:30px;font-family:Poppins,Arial,sans-serif;">
+        <div style="max-width:600px;margin:0 auto;background:#fff;padding:32px 24px 24px 24px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);">
+        <h2 style="color:#1abc9c;margin-top:0;margin-bottom:24px;">Děkujeme za zprávu, '.htmlspecialchars($title).'</h2>
+        <p style="margin-bottom:18px;">Vaše zpráva byla úspěšně přijata. Níže najdete shrnutí vašeho požadavku:</p>
+        <table style="width:100%;border-collapse:collapse;margin-bottom:18px;">
+            <tr><td style="padding:10px 8px;border:1px solid #eaeaea;font-weight:600;width:30%;background:#f9f9f9;">Předmět</td><td style="padding:10px 8px;border:1px solid #eaeaea;">'.htmlspecialchars($subject).'</td></tr>
+            <tr><td style="padding:10px 8px;border:1px solid #eaeaea;font-weight:600;background:#f9f9f9;">Email</td><td style="padding:10px 8px;border:1px solid #eaeaea;">'.htmlspecialchars($email).'</td></tr>
+            <tr><td style="padding:10px 8px;border:1px solid #eaeaea;font-weight:600;background:#f9f9f9;vertical-align:top;">Zpráva</td><td style="padding:10px 8px;border:1px solid #eaeaea;white-space:pre-wrap;">'.nl2br(htmlspecialchars($message)).'</td></tr>
+        </table>
+        <p style="margin-bottom:24px;">Odpovím vám co nejdříve na výše uvedený email.</p>
+        <hr style="border:none;border-top:1px solid #eee;margin:18px 0;">
+        <p style="font-size:13px;color:#666;margin:0;">S pozdravem,<br>_Luky_Cz_<br><a href="https://lukycz.is-a.dev" style="color:#1abc9c;text-decoration:none;">lukycz.is-a.dev</a></p>
+        </div></body></html>';
 
----
-Odesláno z: {$_SERVER['HTTP_HOST']}
-IP adresa: {$_SERVER['REMOTE_ADDR']}
-Datum: " . date('d.m.Y H:i:s');
-$user_subject = "Potvrzení přijetí vaší zprávy - _Luky_Cz_";
-    $user_body_plain = "Dobrý den $title,\n\nDěkuji za váš zájem o mé služby. Vaše zpráva byla úspěšně přijata.\n\nVáš požadavek:\nPředmět: $subject\nZpráva: $message\n\nOdpovím vám co nejdříve na email: $email\n\nS pozdravem,\n_Luky_Cz_\nWeb: https://lukycz.is-a.dev\nEmail: lukas.hanus.cz@icloud.com";
-    $user_body = "<!doctype html>\n<html lang=\"cs\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>Potvrzení přijetí</title></head><body style=\"font-family:Arial,Helvetica,sans-serif;color:#222;background:#f7f7f7;margin:0;padding:20px;\">\n<div style=\"max-width:600px;margin:0 auto;background:#ffffff;padding:20px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.06);\">\n  <h2 style=\"color:#FFD154;margin-top:0;\">Děkujeme za zprávu, $title</h2>\n  <p>Vaše zpráva byla úspěšně přijata. Níže najdete shrnutí vašeho požadavku:</p>\n  <table style=\"width:100%;border-collapse:collapse;margin:12px 0;\">\n    <tr><td style=\"padding:8px;border:1px solid #eee;width:35%;font-weight:600;\">Předmět</td><td style=\"padding:8px;border:1px solid #eee;\">$subject</td></tr>\n    <tr><td style=\"padding:8px;border:1px solid #eee;font-weight:600;\">Email</td><td style=\"padding:8px;border:1px solid #eee;\">$email</td></tr>\n    <tr><td style=\"padding:8px;border:1px solid #eee;font-weight:600;vertical-align:top;\">Zpráva</td><td style=\"padding:8px;border:1px solid #eee;white-space:pre-wrap;\">$message</td></tr>\n  </table>\n  <p>Odpovím vám co nejdříve na výše uvedený email.</p>\n  <hr style=\"border:none;border-top:1px solid #eee;margin:18px 0;\">\n  <p style=\"font-size:13px;color:#666;margin:0;\">S pozdravem,<br>_Luky_Cz_<br><a href=\"https://lukycz.is-a.dev\">lukycz.is-a.dev</a></p>\n</div>\n</body></html>";
-$admin_sent = send_email($admin_email, $admin_subject, $admin_body, $smtp_username, "Website Contact", false, $email);
-       if (!$admin_sent) {
+        // Odeslat adminovi jako text, uživateli jako HTML
+        $admin_sent = send_email($admin_email, $admin_subject, $admin_body, $smtp_username, "Website Contact", false, $email);
+        if (!$admin_sent) {
             error_log("SMTP admin send failed: " . ($last_smtp_error ?? 'unknown'));
             $headers = [];
             $headers[] = 'From: Website Contact <' . $smtp_username . '>';
@@ -97,14 +102,14 @@ $admin_sent = send_email($admin_email, $admin_subject, $admin_body, $smtp_userna
             }
         }
 
-        $user_sent = send_email($email, $user_subject, $user_body_plain, $smtp_username, "_Luky_Cz_", false);
+        $user_sent = send_email($email, $user_subject, $user_body, $smtp_username, "_Luky_Cz_", true);
         if (!$user_sent) {
             error_log("SMTP user send failed: " . ($last_smtp_error ?? 'unknown'));
             $headers = [];
             $headers[] = 'From: _Luky_Cz_ <' . $smtp_username . '>';
             $headers[] = 'Reply-To: ' . ($admin_email);
-            $headers[] = 'Content-Type: text/plain; charset=UTF-8';
-            $user_sent = mail($email, $user_subject, $user_body_plain, implode("\r\n", $headers));
+            $headers[] = 'Content-Type: text/html; charset=UTF-8';
+            $user_sent = mail($email, $user_subject, $user_body, implode("\r\n", $headers));
             if ($user_sent) {
                 error_log("Fallback mail() to user succeeded.");
             }
