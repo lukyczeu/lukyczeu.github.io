@@ -715,9 +715,12 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
         .then(response => response.json())
         .then(data => {
             formMessages.innerHTML = `<div class="form-message ${data.success ? 'success' : 'error'}">${data.message}</div>`;
+            if (typeof turnstile !== 'undefined') {
+                turnstile.reset();
+            }
             if (data.success) {
-            form.reset();
-        }
+                form.reset();
+            }
     })
     .catch(error => {
         formMessages.innerHTML = `<div class="form-message error">Došlo k chybě při odesílání formuláře. Zkuste to prosím znovu.</div>`;

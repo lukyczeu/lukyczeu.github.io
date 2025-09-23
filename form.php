@@ -136,10 +136,13 @@ function send_email($to, $subject, $body, $from_email = null, $from_name = null,
         return mail($to, $subject, $body, $headers);
     }
 
+
     $from = $from_email ?? $admin_email;
     $fromName = $from_name ?? '';
 
-    $remote = ($smtp_secure === 'ssl') ? "ssl://{$smtp_host}:{$smtp_port}" : "{$smtp_host}:{$smtp_port}";
+    $use_ssl = (strtolower($smtp_secure) === 'ssl');
+    $use_tls = (strtolower($smtp_secure) === 'tls' || strtolower($smtp_secure) === 'starttls');
+    $remote = $use_ssl ? "ssl://{$smtp_host}:{$smtp_port}" : "{$smtp_host}:{$smtp_port}";
 
     $errno = 0; $errstr = '';
     $timeout = 30;
@@ -181,6 +184,34 @@ function send_email($to, $subject, $body, $from_email = null, $from_name = null,
         $resp = $send("HELO {$hostname}");
         if (substr($resp,0,3) !== '250') {
             $msg = "SMTP EHLO/HELO failed: " . trim($resp);
+            error_log($msg);
+            $last_smtp_error = $msg;
+            fclose($fp);
+            return false;
+        }
+    }
+
+    // STARTTLS podpora
+    if ($use_tls) {
+        $resp = $send('STARTTLS');
+        if (substr($resp,0,3) !== '220') {
+            $msg = "STARTTLS failed: " . trim($resp);
+            error_log($msg);
+            $last_smtp_error = $msg;
+            fclose($fp);
+            return false;
+        }
+        if (!stream_socket_enable_crypto($fp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+            $msg = "Failed to enable TLS crypto";
+            error_log($msg);
+            $last_smtp_error = $msg;
+            fclose($fp);
+            return false;
+        }
+        // Po STARTTLS je potřeba znovu EHLO
+        $resp = $send("EHLO {$hostname}");
+        if (substr($resp,0,3) !== '250') {
+            $msg = "EHLO after STARTTLS failed: " . trim($resp);
             error_log($msg);
             $last_smtp_error = $msg;
             fclose($fp);
