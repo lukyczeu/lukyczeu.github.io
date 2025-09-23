@@ -74,13 +74,13 @@ if (empty($errors)) {
         $admin_body = '<!DOCTYPE html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Webový kontakt</title></head><body style="background:#f7f7f7;margin:0;padding:30px;font-family:Poppins,Arial,sans-serif;">
         <div style="max-width:600px;margin:0 auto;background:#fff;padding:32px 24px 24px 24px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);">
         <h2 style="color:#FFD154;margin-top:0;margin-bottom:24px;">Webový kontakt</h2>
-        <p style="margin-bottom:18px;">Z webového formuláře přišla nová zpráva:</p>
-        <div style="margin-bottom:18px;">
-            <div style="margin-bottom:14px;"><span style="font-weight:600;display:block;margin-bottom:2px;">Jméno</span><span style="display:block;padding:10px 8px;background:#f9f9f9;border-radius:6px;border:1px solid #eaeaea;">'.htmlspecialchars($title).'</span></div>
-            <div style="margin-bottom:14px;"><span style="font-weight:600;display:block;margin-bottom:2px;">Email</span><span style="display:block;padding:10px 8px;background:#f9f9f9;border-radius:6px;border:1px solid #eaeaea;">'.htmlspecialchars($email).'</span></div>
-            <div style="margin-bottom:14px;"><span style="font-weight:600;display:block;margin-bottom:2px;">Předmět</span><span style="display:block;padding:10px 8px;background:#f9f9f9;border-radius:6px;border:1px solid #eaeaea;">'.htmlspecialchars($subject).'</span></div>
-            <div style="margin-bottom:14px;"><span style="font-weight:600;display:block;margin-bottom:2px;">Zpráva</span><span style="display:block;padding:10px 8px;background:#f9f9f9;border-radius:6px;border:1px solid #eaeaea;white-space:pre-wrap;">'.nl2br(htmlspecialchars($message)).'</span></div>
-        </div>
+        <p style="margin-bottom:18px;">Nová zpráva z webového formuláře:</p>
+        <table style="width:100%;border-collapse:collapse;margin-bottom:18px;">
+            <tr><td style="padding:10px 8px;border:1px solid #eaeaea;font-weight:600;width:30%;background:#f9f9f9;">Předmět</td><td style="padding:10px 8px;border:1px solid #eaeaea;">'.htmlspecialchars($subject).'</td></tr>
+            <tr><td style="padding:10px 8px;border:1px solid #eaeaea;font-weight:600;background:#f9f9f9;">Jméno</td><td style="padding:10px 8px;border:1px solid #eaeaea;">'.htmlspecialchars($title).'</td></tr>
+            <tr><td style="padding:10px 8px;border:1px solid #eaeaea;font-weight:600;background:#f9f9f9;">Email</td><td style="padding:10px 8px;border:1px solid #eaeaea;"><a href="mailto:'.htmlspecialchars($email).'" style="color:#FFD154;text-decoration:none;">'.htmlspecialchars($email).'</a></td></tr>
+            <tr><td style="padding:10px 8px;border:1px solid #eaeaea;font-weight:600;background:#f9f9f9;vertical-align:top;">Zpráva</td><td style="padding:10px 8px;border:1px solid #eaeaea;white-space:pre-wrap;">'.nl2br(htmlspecialchars($message)).'</td></tr>
+        </table>
         <hr style="border:none;border-top:1px solid #eee;margin:18px 0;">
         <p style="font-size:13px;color:#666;margin:0;">Odesláno z: '.htmlspecialchars($_SERVER['HTTP_HOST']).'<br>IP adresa: '.htmlspecialchars($_SERVER['REMOTE_ADDR']).'<br>Datum: '.date('d.m.Y H:i:s').'</p>
         </div></body></html>';
