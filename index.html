@@ -642,7 +642,8 @@ Budu se těšit na spolupráci s vámi!</p>
 <div id="form-message" class="formular">
     <h2>Kontaktujte mě</h2>
     <p>Máte zájem o spolupráci nebo chcete vědět více?</p>
-    <form id="contact-form" action="form.php" method="POST">
+    <div id="form-messages"></div>
+    <form id="contact-form" method="post">
         <label for="email">Váš email</label>
         <input minlength="10" maxlength="50" type="email" id="email" name="email" required>
         <label for="title">Jméno</label>
@@ -694,8 +695,33 @@ Budu se těšit na spolupráci s vámi!</p>
     });
   }
 })();
-</script>
 
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const formMessages = document.getElementById('form-messages');
+
+    formMessages.innerHTML = ''; 
+
+    fetch('form.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        formMessages.innerHTML = `<div class="form-message ${data.success ? 'success' : 'error'}">${data.message}</div>`;
+        if (data.success) {
+            form.reset();
+        }
+    })
+    .catch(error => {
+        formMessages.innerHTML = `<div class="form-message error">Došlo k chybě při odesílání formuláře. Zkuste to prosím znovu.</div>`;
+        console.error('Error:', error);
+    });
+});
+</script>
 
 </html>
 
