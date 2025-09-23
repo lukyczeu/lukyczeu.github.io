@@ -703,12 +703,12 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     const formData = new FormData(form);
     const formMessages = document.getElementById('form-messages');
 
-    
+
         formData.append('ajax', '1');
     
         formMessages.innerHTML = '';
     
-        fetch('form.php', {
+        fetch('formula.php', {
             method: 'POST',
             body: formData
         })
