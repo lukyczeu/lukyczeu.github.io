@@ -704,7 +704,17 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     const formMessages = document.getElementById('form-messages');
 
     formData.append('ajax', '1');
-    formMessages.innerHTML = '';
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+    let dots = 0;
+    let sending = true;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Odesílám<span id="sending-dots">...</span>';
+    const dotsInterval = setInterval(() => {
+        if (!sending) return;
+        dots = (dots + 1) % 4;
+        document.getElementById('sending-dots').textContent = '.'.repeat(dots === 0 ? 3 : dots);
+    }, 400);
 
     fetch('formula.php', {
         method: 'POST',
@@ -712,6 +722,10 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     })
     .then(response => response.json())
     .then(data => {
+        sending = false;
+        clearInterval(dotsInterval);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
         formMessages.innerHTML = `<div class="form-message ${data.success ? 'success' : 'error'}">${data.message}</div>`;
         if (typeof turnstile !== 'undefined') {
             turnstile.reset();
@@ -724,6 +738,10 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
         }, 3000);
     })
     .catch(error => {
+        sending = false;
+        clearInterval(dotsInterval);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
         formMessages.innerHTML = `<div class="form-message error">Došlo k chybě při odesílání formuláře. Zkuste to prosím znovu.</div>`;
         console.error('Error:', error);
         setTimeout(() => {
