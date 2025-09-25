@@ -25,6 +25,11 @@ if (empty($email)) {
         $errors[] = "Email je povinný.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Neplatný formát emailu.";
+    } else {
+        $email_domain = substr(strrchr($email, "@"), 1);
+        if (!$email_domain || !checkdnsrr($email_domain, "MX")) {
+            $errors[] = "Emailová adresa neexistuje nebo doména nepřijímá emaily.";
+        }
     }
 if (empty($title)) {
         $errors[] = "Jméno je povinné.";
@@ -82,7 +87,7 @@ if (empty($errors)) {
             <tr><td style="padding:10px 8px;border:1px solid #eaeaea;font-weight:600;background:#f9f9f9;vertical-align:top;">Zpráva</td><td style="padding:10px 8px;border:1px solid #eaeaea;white-space:pre-wrap;">'.nl2br(htmlspecialchars($message)).'</td></tr>
         </table>
         <hr style="border:none;border-top:1px solid #eee;margin:18px 0;">
-        <p style="font-size:13px;color:#666;margin:0;">Odesláno z: '.htmlspecialchars($_SERVER['HTTP_HOST']).'<br>IP adresa: '.htmlspecialchars($_SERVER['REMOTE_ADDR']).'<br>Datum: '.date('d.m.Y H:i:s').'</p>
+    <p style="font-size:13px;color:#666;margin:0;">Odesláno z: <a href="https://'.htmlspecialchars($_SERVER['HTTP_HOST']).'" style="color:#FFD154;text-decoration:none;">'.htmlspecialchars($_SERVER['HTTP_HOST']).'</a><br>IP adresa: '.htmlspecialchars($_SERVER['REMOTE_ADDR']).'<br>Datum: '.date('d.m.Y H:i:s').'</p>
         </div></body></html>';
 
         $user_subject = "Děkujeme za zprávu - _Luky_Cz_";
