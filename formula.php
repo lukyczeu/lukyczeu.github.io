@@ -90,7 +90,7 @@ if (empty($errors)) {
     <p style="font-size:13px;color:#666;margin:0;">Odesláno z: <a href="https://'.htmlspecialchars($_SERVER['HTTP_HOST']).'" style="color:#FFD154;text-decoration:none;">'.htmlspecialchars($_SERVER['HTTP_HOST']).'</a><br>IP adresa: '.htmlspecialchars($_SERVER['REMOTE_ADDR']).'<br>Datum: '.date('d.m.Y H:i:s').'</p>
         </div></body></html>';
 
-        $user_subject = "Děkujeme za zprávu - _Luky_Cz_";
+        $user_subject = "Děkujeme za zprávu - Lukáš Hanuš";
         $user_body = '<!DOCTYPE html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Děkujeme za zprávu</title></head><body style="background:#f7f7f7;margin:0;padding:30px;font-family:Poppins,Arial,sans-serif;">
         <div style="max-width:600px;margin:0 auto;background:#fff;padding:32px 24px 24px 24px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);">
         <h2 style="color:#FFD154;margin-top:0;margin-bottom:24px;">Děkujeme za zprávu, '.htmlspecialchars($title).'</h2>
@@ -102,7 +102,7 @@ if (empty($errors)) {
         </table>
         <p style="margin-bottom:24px;">Odpovím vám co nejdříve na výše uvedený email.</p>
         <hr style="border:none;border-top:1px solid #eee;margin:18px 0;">
-        <p style="font-size:13px;color:#666;margin:0;">S pozdravem,<br>_Luky_Cz_<br><a href="https://lukycz.is-a.dev" style="color:#FFD154;text-decoration:none;">lukycz.is-a.dev</a></p>
+        <p style="font-size:13px;color:#666;margin:0;">S pozdravem,<br>Lukáš Hanuš<br><a href="https://lukycz.is-a.dev" style="color:#FFD154;text-decoration:none;">lukycz.is-a.dev</a></p>
         </div></body></html>';
 
         $admin_sent = send_email($admin_email, $admin_subject, $admin_body, $smtp_username, "Webový kontakt", true, $email);
@@ -118,11 +118,11 @@ if (empty($errors)) {
             }
         }
 
-        $user_sent = send_email($email, $user_subject, $user_body, $smtp_username, "_Luky_Cz_", true);
+        $user_sent = send_email($email, $user_subject, $user_body, $smtp_username, "Lukáš Hanuš", true);
         if (!$user_sent) {
             error_log("SMTP user send failed: " . ($last_smtp_error ?? 'unknown'));
             $headers = [];
-            $headers[] = 'From: _Luky_Cz_ <' . $smtp_username . '>';
+            $headers[] = 'From: Lukáš Hanuš <' . $smtp_username . '>';
             $headers[] = 'Reply-To: ' . ($admin_email);
             $headers[] = 'Content-Type: text/html; charset=UTF-8';
             $user_sent = mail($email, $user_subject, $user_body, implode("\r\n", $headers));
