@@ -1,62 +1,804 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="cs">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-09PLLPBSQ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-09PLLPBSQ6');
+  gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+});
+</script>
+<script
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  async
+  defer
+></script>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="website icon" href="https://lukycz.is-a.dev/luky_cz.webp">
-  <link rel="icon" href="https://lukycz.is-a.dev/luky_cz.webp" type="image/png">
-  <link rel="icon" href="https://lukycz.is-a.dev/luky_cz.webp" type="image/x-icon">
-  <meta property="og:image" content="https://lukycz.is-a.dev/luky_cz.webp">
-  <meta property="og:title" content="Lukáš Hanuš - Developer">
-  <meta property="og:description" content="Web developer zaměřený na moderní webové aplikace, čistý kód a funkční řešení.">
-  <meta property="og:type" content="website">
-  <title>Lukáš Hanuš</title>
-  <style>
-    html,body {
-      margin:0;
-      height:100%;
-      background:#000;
-    }
-    iframe {
-      width:100%;
-      height:100%;
-      border:0;
-      display:block;
-    }
-    #errorMsg {
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#ddd;
-      font-family:system-ui,Segoe UI,Roboto,Arial;
-      font-size:1rem;
-      text-align:center;
-      padding:20px;
-      background:linear-gradient(0deg, rgba(0,0,0,0.7), transparent);
-    }
-  </style>
+    <link rel="website icon" href="https://lukycz.is-a.dev/luky_cz.webp">
+    <link rel="icon" href="https://lukycz.is-a.dev/luky_cz.webp" type="image/png">
+    <link rel="icon" href="https://lukycz.is-a.dev/luky_cz.webp" type="image/x-icon">
+    <meta charset="UTF-8">
+    <title>Lukáš Hanuš</title>
+    <meta property="og:image" content="https://lukycz.is-a.dev/luky_cz.webp">
+    <meta property="og:title" content="Lukáš Hanuš - Developer">
+    <meta property="og:description" content="Web developer zaměřený na moderní webové aplikace, čistý kód a funkční řešení.">
+    <meta property="og:type" content="website">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com/" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,700;1,400&display=swap" as="style" onload="this.rel='stylesheet'">
+    <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+    </noscript>
+    <style>
+        ::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: rgb(34, 34, 34);
+            color: rgb(255, 255, 255);
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+        footer {
+            background-color: rgb(29, 29, 29);
+            text-align: center;
+            padding: 20px 15px;
+            margin-top: 80px;
+            border-top: 3px solid #333;
+            position: relative;
+            z-index: 0;
+        }
+        footer p {
+            margin: 0;
+            color: rgb(243, 243, 243);
+            padding: 0 10px;
+            max-width: 100%;
+            word-wrap: break-word;
+        }
+        .obrazek {
+            margin: 2% auto 0 auto;
+            width: 200px;
+        }
+        .obrazek img {
+            width: 100%;
+            border-radius: 50%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border: 3px solid #666;
+        }
+        .jmeno {
+            text-align: center;
+            margin-top: 1%;
+        }
+        .popis {
+            font-style: italic;
+            margin: 10% auto 0 auto;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .popis p {
+            margin: 0;
+            font-weight: 400;
+        }
+        .ikonky {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 5%;
+        }
+        .social-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            border: 2px solid #444;
+            border-radius: 15px;
+            text-decoration: none;
+            color: white;
+            background-color: #1d1d1d;
+            transition: all 0.3s ease;
+        }
+        .social-button:hover {
+            border-color: #666;
+            background-color: #333;
+        }
+        .social-button img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            filter: brightness(0) invert(1);
+        }
+        .social-button span {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .projekty {
+          border: 3px solid #333;
+          border-radius: 15px;
+          margin: 10% 15px 0 15px;
+          background-color: #2a2a2a;
+          text-align: center;
+          padding: 15px;
+          max-width: 100vw;
+          overflow-x: auto;
+        }
+        .projekty p {
+            margin-top: -35px;
+            margin-bottom: 30px;
+        }
+        .projekty h2 {
+            margin-top: 0;
+            margin-bottom: 40px;
+            font-size: 2em;
+        }
+        .projekty h3 {
+            font-size: 1.1em;
+        }
+        .projekty-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .projekt-karta {
+            border: 3px solid #666;
+            background-color: rgb(34, 34, 34);
+            border-radius: 10px;
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+            width: 180px;
+            transition: transform 0.3s ease;
+        }
+        .projekt-karta:hover {
+            transform: translateY(-10px);
+        }
+        .projekt-karta img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+        .projekt-karta h3 {
+            padding: 15px;
+            margin: 0;
+            font-weight: 500;
+        }
+        .nabizim {
+            border: 3px solid #333;
+            border-radius: 15px;
+            margin: 10% 15px 0 15px;
+            background-color: #2a2a2a;
+            text-align: center;
+            padding: 15px 15px 25px 15px;
+            max-width: 100vw;
+            overflow: visible;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .nabizim p {
+          margin-top: -35px;
+          margin-bottom: 30px;
+          width: 100%;
+          text-align: center;
+          align-self: center;
+        }
+        .nabizim h2 {
+            margin-top: 0;
+            margin-bottom: 40px;
+            font-size: 2em;
+            display: inline-block;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        .nabizim h3 {
+            font-size: 1.1em;
+        }
+        .nabizim img {
+            border: 3px solid #666;
+            width: 100%;
+            max-width: 340px;
+            min-width: 180px;
+            border-radius: 15px;
+            height: auto;
+            object-fit: cover;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            align-self: center;
+        }
+        .zkusenosti {
+            border: 3px solid #333;
+            border-radius: 15px;
+            margin: 10% 15px 0 15px;
+            background-color: #2a2a2a;
+            text-align: center;
+            padding: 15px;
+            max-width: 100vw;
+            overflow-x: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .zkusenosti p {
+            margin-top: -35px;
+            margin-bottom: 30px;
+        }
+        .zkusenosti h2 {
+            margin-top: 0;
+            margin-bottom: 40px;
+            font-size: 2em;
+        }
+        .zkusenosti h3 {
+            font-size: 1.1em;
+        }
+        .zkusenosti img {
+            border: 3px solid #666;
+            width: 40%;
+            border-radius: 15px;
+            height: 40%;
+            object-fit: cover;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+        .formular {
+            border: 3px solid #333;
+            border-radius: 15px;
+            margin: 10% 15px 0 15px;
+            background-color: #2a2a2a;
+            text-align: center;
+            padding: 15px;
+            max-width: 100vw;
+            overflow-x: auto;
+        }
+        .formular h2 {
+            margin-top: 0;
+            margin-bottom: 40px;
+            font-size: 2em;
+        }
+        .formular p {
+            margin-top: -35px;
+            margin-bottom: 30px;
+        }
+        .formular form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .formular label {
+            text-align: left;
+            font-weight: 500;
+            margin-bottom: -10px;
+        }
+        .formular input,
+        .formular textarea {
+            padding: 12px;
+            border-radius: 10px;
+            border: 2px solid #444;
+            background-color: #1d1d1d;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            resize: none;
+        }
+        .formular input:focus,
+        .formular textarea:focus {
+            outline: none;
+            border-color: #666;
+        }
+        .formular button {
+            padding: 12px 20px;
+            background-color: #525252;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .formular button:hover {
+            background-color: #585858;
+        }
+        .cf-turnstile {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        @media (max-width: 480px) {
+            footer {
+                padding: 20px 20px;
+            }
+            footer p {
+                padding: 0 15px;
+            }
+        }
+        @media (min-width: 481px) and (max-width: 767px) {
+            footer {
+                padding: 20px 30px;
+            }
+            footer p {
+                padding: 0 20px;
+            }
+        }
+        @media (min-width: 768px) {
+        .popis {
+            margin-top: 50px;
+        }
+        .skill {
+            max-width: 100%;
+            font-size: 14px;
+        }
+        .skill .icon {
+            margin-top: 2px;
+            width: 16px;
+            height: 16px;
+            margin-top: 3px;
+        }
+        .zkusenosti {
+            margin: 50px auto 0 auto;
+            max-width: 1200px;
+            padding: 40px;
+        }
+        .ikonky {
+            margin-top: 40px;
+        }
+        .projekty {
+            margin: 50px auto 0 auto;
+            max-width: 1200px;
+            padding: 40px;
+        }
+        .nabizim {
+            margin: 50px auto 0 auto;
+            max-width: 1200px;
+            padding: 40px;
+        }
+        .formular {
+            margin: 50px auto 0 auto;
+            max-width: 1200px;
+            padding: 40px;
+            display: block;
+        }
+        footer {
+            padding: 20px 40px;
+        }
+        footer p {
+            padding: 0 30px;
+        }
+        }
+        .projekt-karta {
+            width: 320px;
+            }
+        .projekt-karta img {
+            height: 180px;
+        }
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .bubbles span {
+            position: absolute;
+            bottom: -180px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: animate-bubbles 25s linear infinite;
+            backdrop-filter: blur(5px);
+        }
+        .bubbles span:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            left: 10%;
+            animation-duration: 22s;
+            animation-delay: -5s;
+        }
+        .bubbles span:nth-child(2) {
+            width: 20px;
+            height: 20px;
+            left: 20%;
+            animation-duration: 18s;
+            animation-delay: -10s;
+        }
+        .bubbles span:nth-child(3) {
+            width: 50px;
+            height: 50px;
+            left: 35%;
+            animation-duration: 28s;
+            animation-delay: -2s;
+        }
+        .bubbles span:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            left: 50%;
+            animation-duration: 15s;
+            animation-delay: -7s;
+        }
+        .bubbles span:nth-child(5) {
+            width: 35px;
+            height: 35px;
+            left: 55%;
+            animation-duration: 25s;
+            animation-delay: -12s;
+        }
+        .bubbles span:nth-child(6) {
+            width: 45px;
+            height: 45px;
+            left: 65%;
+            animation-duration: 19s;
+            animation-delay: -4s;
+        }
+        .bubbles span:nth-child(7) {
+            width: 150px;
+            height: 150px;
+            left: 70%;
+            animation-duration: 35s;
+            animation-delay: -15s;
+        }
+        .bubbles span:nth-child(8) {
+            width: 25px;
+            height: 25px;
+            left: 80%;
+            animation-duration: 16s;
+            animation-delay: -8s;
+        }
+        .bubbles span:nth-child(9) {
+            width: 15px;
+            height: 15px;
+            left: 90%;
+            animation-duration: 26s;
+            animation-delay: -20s;
+        }
+        .bubbles span:nth-child(10) {
+            width: 60px;
+            height: 60px;
+            left: 95%;
+            animation-duration: 20s;
+            animation-delay: -1s;
+        }
+        @keyframes animate-bubbles {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-120vh) rotate(720deg);
+            opacity: 0;
+        }
+        }
+        .skill {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            text-align: left;
+            margin-bottom: 12px;
+            max-width: 90%;
+        }
+        .skill span {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .skill .icon {
+            border: 0px;
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        #cookie-alert {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgb(7, 7, 7);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            border: #000000 3px solid;
+            z-index: 1000;
+            max-width: 600px;
+            width: 90%;
+        }
+        #cookie-alert p {
+            margin: 0;
+            font-size: 14px;
+            text-align: center;
+        }
+        #cookie-accept-btn {
+            font-size: 14px;
+            background-color: #525252;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+        #cookie-accept-btn:hover {
+            background-color: #585858;
+        }
+        .form-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 1rem;
+            line-height: 1.4;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .form-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 3px solid #4CAF50;
+            box-shadow: 0 2px 8px rgba(76,175,80,0.08);
+            padding: 18px;
+            border-radius: 12px;
+        }
+
+        .form-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 3px solid #E53935;
+            box-shadow: 0 2px 8px rgba(229,57,53,0.08);
+            padding: 18px;
+            border-radius: 12px;
+        }
+    </style>
 </head>
 <body>
-  <iframe id="frame" src="http://capy.vagonbrei.eu:25042"></iframe>
-  <div id="errorMsg" style="display:none;">
-  </div>
-
-  <script>
-    const frame = document.getElementById('frame');
-    const errorMsg = document.getElementById('errorMsg');
-
-    setTimeout(() => {
-      try {
-        const loc = frame.contentWindow.location.href;
-        if (!loc || loc === 'about:blank') {
-          errorMsg.style.display = 'flex';
-        }
-      } catch(e) {
-        errorMsg.style.display = 'none';
-      }
-    }, 1000);
-  </script>
+<div class="bubbles">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+<main>
+    <div id="cookie-alert">
+    <p>Tento web používá cookies ke zlepšení zážitku a analytice. Pokračováním souhlasíte s používáním cookies.</p>
+    <div>
+      <button style="border: #333333 3px solid; font-family: 'Poppins', sans-serif;" id="cookie-accept-btn">Přijmout</button>
+    </div>
+    </div>
+    <div class="obrazek">
+        <img fetchpriority=high src="luky_cz.webp" alt="Luky_Cz">
+    </div>
+    <div class="jmeno">
+        <h1>Lukáš Hanuš</h1>
+    </div>
+    <div class="popis">
+        <p>Ahoj, jmenuji se Lukáš Hanuš a je mi 16 let. Už několik let mě baví svět technologií, především vývoj webových stránek a programování. Rád se učím nové věci, zkouším různé technologie a hledám způsoby, jak se neustále zlepšovat.</p>
+    </div>
+    <div class="ikonky">
+        <a href="https://discord.com/users/Lukáš Hanuš" target="_blank" class="social-button">
+            <img fetchpriority=high src="discord.webp" alt="Discord">
+            <span>Discord</span>
+        </a>
+        <a href="https://github.com/lukyczeu" target="_blank" class="social-button">
+            <img fetchpriority=high src="github.webp" alt="GitHub">
+            <span>GitHub</span>
+        </a>
+        <a href="mailto:lukas.hanus.cz@icloud.com" class="social-button">
+            <img fetchpriority=high src="email.webp" alt="Email">
+            <span>Email</span>
+        </a>
+    </div>
+    <div class="projekty">
+        <h2>Podílel jsem se na projektech</h2>
+        <p>Seznam projektů, na kterých jsem pracoval během své kariéry.</p>
+        <div class="projekty-grid">
+            <a href="https://darkup.cz/" target="_blank" class="projekt-karta">
+                <img fetchpriority=high src="darkupcz.webp" alt="Darkup.cz">
+                <h3>Darkup.cz</h3>
+            </a>
+            <a href="https://rajce.pro/" target="_blank" class="projekt-karta">
+                <img fetchpriority=high src="rajcecz.webp" alt="Rajce.pro">
+                <h3>Rajce.pro</h3>
+            </a>
+            <a href="https://blackmc.eu/" target="_blank" class="projekt-karta">
+                <img fetchpriority=high src="blackmceu.webp" alt="BlackMC.eu">
+                <h3>BlackMC.eu</h3>
+            </a>
+        </div>
+    </div>
+    <div class="nabizim">
+    <h2>Co nabízím?</h2>
+    <p>Máte zájem o vytvoření moderní webové stránky, vylepšení designu a funkcí vašeho webu, nebo třeba o úpravy a modifikace do hry Minecraft? Neváhejte mě kontaktovat na e-mailu: <a href="mailto:lukas.hanus.cz@icloud.com" style="color: rgb(255, 250, 176); text-decoration: none;" class="email-link">lukas.hanus.cz@icloud.com</a>. Pracuji rychle, spolehlivě a za rozumné ceny.
+Budu se těšit na spolupráci s vámi!</p>
+    <img fetchpriority=high src="nabizimm.webp" alt="Nabízím" style="max-width:340px; width:100%; border-radius:15px;">
+    </div>
+<div class="zkusenosti">
+    <h2>Moje zkušenosti</h2>
+    <div class="skill">
+        <img fetchpriority=high src="yes.webp" alt="✔" class="icon">
+        <span>Umím pracovat s <strong>HTML</strong> a <strong>CSS</strong> – tvorba moderních a responzivních webů.</span>
+    </div>
+    <div class="skill">
+        <img fetchpriority=high src="yes.webp" alt="✔" class="icon">
+        <span>Základy <strong>PHP</strong> – tvorba jednoduchých backendových funkcí.</span>
+    </div>
+    <div class="skill">
+        <img fetchpriority=high src="yes.webp" alt="✔" class="icon">
+        <span>Znalost <strong>databází</strong> (MySQL) – práce s tabulkami, dotazy a propojení s webovými aplikacemi.</span>
+    </div>
+    <div class="skill">
+        <img fetchpriority=high src="yes.webp" alt="✔" class="icon">
+        <span>Neustále se učím nové technologie a zlepšuji své dovednosti.</span>
+    </div>
+    <div class="skill">
+        <img fetchpriority=high src="no.webp" alt="✘" class="icon">
+        <span><strong>JavaScript</strong> – zatím mám jen menší základy, plánuju se doučit.</span>
+    </div>
+    <div class="skill">
+        <img fetchpriority=high src="no.webp" alt="✘" class="icon">
+        <span><strong>React / moderní frameworky</strong> – nemám zkušenosti, ale chci se je naučit.</span>
+    </div>
+    <div class="skill">
+        <img fetchpriority=high src="no.webp" alt="✘" class="icon">
+        <span><strong>Pokročilejší backend</strong> (např. Node.js) – zatím neumím, ale rád bych získal praxi.</span>
+    </div>
+</div>
+<div id="form-message" class="formular">
+    <h2>Kontaktujte mě</h2>
+    <p>Máte zájem o spolupráci nebo chcete vědět více?</p>
+    <div id="form-messages"></div>
+    <form id="contact-form" method="post">
+        <label for="email">Váš email</label>
+        <input minlength="10" maxlength="50" type="email" id="email" name="email" required>
+        <label for="title">Jméno</label>
+        <input minlength="5" maxlength="30" type="text" id="title" name="title" required>
+        <label for="subject">Předmět</label>
+        <input minlength="5" maxlength="30" type="text" id="subject" name="subject" required>
+        <label for="message">Zpráva</label>
+        <textarea minlength="10" maxlength="500" id="message" name="message" required></textarea>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAB2dVGT0M-y7GFRf"></div>
+        <button style="border: #333333 3px solid;" type="submit">Odeslat zprávu</button>
+    </form>
+</div>
+<footer>
+    <p>&copy; 2025 <a href="https://lukycz.is-a.dev" style="color: rgb(184, 184, 184); text-decoration: none;" class="link">Lukáš Hanuš</a>. | Všechna práva vyhrazena. | Vytvořil Lukáš Hanuš.</p>
+</footer>
 </body>
+<script>
+(function() {
+  const banner = document.getElementById('cookie-alert');
+  const btn = banner ? banner.querySelector('button') : null;
+
+  function hideBanner() {
+    if (banner) banner.style.display = 'none';
+  }
+
+  try {
+    if (localStorage.getItem('cookiesAccepted') === 'true') {
+      hideBanner();
+      return;
+    }
+  } catch(e) {
+    console.error(e);
+  }
+
+  if (btn) {
+    btn.addEventListener('click', function() {
+      try {
+        localStorage.setItem('cookiesAccepted', 'true');
+      } catch(e) {
+        console.error(e);
+      }
+      hideBanner();
+      if (typeof gtag === 'function') {
+        gtag('consent', 'update', {
+          'ad_storage':'granted',
+          'analytics_storage':'granted'
+        });
+      }
+    });
+  }
+})();
+
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const formMessages = document.getElementById('form-messages');
+
+    formData.append('ajax', '1');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+    let dots = 0;
+    let sending = true;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Odesílám<span id="sending-dots">...</span>';
+    const dotsInterval = setInterval(() => {
+        if (!sending) return;
+        dots = (dots + 1) % 4;
+        document.getElementById('sending-dots').textContent = '.'.repeat(dots === 0 ? 3 : dots);
+    }, 400);
+
+    fetch('formula.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        sending = false;
+        clearInterval(dotsInterval);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+        formMessages.innerHTML = `<div class="form-message ${data.success ? 'success' : 'error'}">${data.message}</div>`;
+        if (typeof turnstile !== 'undefined') {
+            turnstile.reset();
+        }
+        if (data.success) {
+            form.reset();
+        }
+        setTimeout(() => {
+            formMessages.innerHTML = '';
+        }, 3000);
+    })
+    .catch(error => {
+        sending = false;
+        clearInterval(dotsInterval);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+        formMessages.innerHTML = `<div class="form-message error">Došlo k chybě při odesílání formuláře. Zkuste to prosím znovu.</div>`;
+        console.error('Error:', error);
+        setTimeout(() => {
+            formMessages.innerHTML = '';
+        }, 3000);
+    });
+});
+</script>
+
 </html>
+
